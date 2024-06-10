@@ -1,0 +1,5 @@
+MOV A,0
+
+INR A
+
+OUT 04
