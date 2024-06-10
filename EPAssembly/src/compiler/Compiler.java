@@ -60,6 +60,8 @@ public class Compiler {
 	public String[] compileToBinary() throws CompileException { // TODO tag same line support, does not support multiple spaces within line
 		ArrayList<String> binaries = new ArrayList<>();
 		
+		System.out.println("Starting compilation process to binary...");
+		
 		for(int i = 0; i<code.length; i++) {
 			final String line = code[i].split(";")[0].trim();
 			if(line.isEmpty()) continue;
@@ -70,7 +72,11 @@ public class Compiler {
 			final String[] components = line.split(" ", 2);
 			final String[] args = components.length > 1 ? components[1].split(",") : new String[0];
 			
-			System.out.println(i + " " + line);
+			for(int j = 0; j<args.length; j++) {
+				args[j] = args[j].trim();
+			}
+			
+			if(DEBUG) System.out.println(i + " " + line);
 			
 			if(line.endsWith(":")) {
 				labels.put(line.substring(0, line.length()-1), binaries.size());
@@ -87,16 +93,21 @@ public class Compiler {
 			cBinaries[i] = binaries.get(i);
 		}
 		
+		System.out.println("Replacing labels...");
+		
 		for(int i = 0; i<cBinaries.length; i++) {
 			if(cBinaries[i].startsWith("L")) {
 				cBinaries[i] = NumConverter.decToBinary(getLabelAddress(cBinaries[i].substring(1)) + "");
 			}
 		}
+		
 		return cBinaries;
 	}
 	
 	public String[] compileToHex() throws CompileException {
 		String[] c = compileToBinary();
+		
+		System.out.println("Converting to Hex...");
 		
 		for(int i = 0; i<c.length; i++) {
 			String[] comp = c[i].split("@", 2);

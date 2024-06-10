@@ -101,6 +101,39 @@ public class Commands {
 				}
 			},
 			/*
+			 * LOGIC
+			 */
+			new Command("ANA", 1, "10100sss") {
+				@Override
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
+					ArrayList<String> r = new ArrayList<>();
+					
+					r.add(this.binaryRepr.replace("sss", Compiler.getRegisterByTitle(args[0], line).ddd));
+					
+					return r;
+				}
+			},
+			new Command("ORA", 1, "10110sss") {
+				@Override
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
+					ArrayList<String> r = new ArrayList<>();
+					
+					r.add(this.binaryRepr.replace("sss", Compiler.getRegisterByTitle(args[0], line).ddd));
+					
+					return r;
+				}
+			},
+			new Command("XRA", 1, "10101sss") {
+				@Override
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
+					ArrayList<String> r = new ArrayList<>();
+					
+					r.add(this.binaryRepr.replace("sss", Compiler.getRegisterByTitle(args[0], line).ddd));
+					
+					return r;
+				}
+			},
+			/*
 			 * JUMP
 			 */
 			new Command("JMP", 1, "11000011") {
