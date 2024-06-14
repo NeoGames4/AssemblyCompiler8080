@@ -20,16 +20,21 @@ public class Compiler {
 	final static Command[] commands = Commands.commands;
 	
 	/**
-	 * Stores the name of each register and its individual binary representation "ddd" or "sss".
+	 * Stores the title of each register and the individual binary representation "ddd" or "sss", as well as the addresses associated with the title.<br>
+	 * <b>Please note:</b> One {@link compiler.Register} can describe multiple, independent registers with the same title.
 	 */
 	final static Register[] registers = {
-			new Register("A", "111"),
-			new Register("B", "000"),
-			new Register("C", "001"),
-			new Register("D", "010"),
-			new Register("E", "011"),
-			new Register("H", "100"),
-			new Register("L", "101")
+			new Register("A",	"111", NumConverter.hexToBinary("00", 8),	null),
+			new Register("B",	"000", NumConverter.hexToBinary("01", 8),	null),
+			new Register("C",	"001", NumConverter.hexToBinary("02", 8),	null),
+			new Register("D",	"010", null,								null),
+			new Register("E",	"011", null,								null),
+			new Register("H",	"100", null,								null),
+			new Register("L",	"101", null,								null),
+			new Register("X",	null,  null,								NumConverter.hexToBinary("00", 8)),
+			new Register("R",	null,  null, 								NumConverter.hexToBinary("01", 8)),
+			new Register("DAC",	null,  null,								NumConverter.hexToBinary("04", 8)),
+			new Register("ADC",	null,  NumConverter.hexToBinary("05", 8),	NumConverter.hexToBinary("05", 8))
 	};
 	
 	/**
