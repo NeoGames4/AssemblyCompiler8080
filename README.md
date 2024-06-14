@@ -1,6 +1,18 @@
 # AssemblyCompiler8080
 A simple assembly compiler for the Intel 8080 based chip used at the electronics practical course (Elektronikpraktikum) at the University of Bonn.
 
+## Table of Contents
+1. [What it does](#what-it-does)
+2. [What it does not](#what-it-does-not)
+3. [How to use from the command line](#how-to-use-from-the-command-line)
+4. [How to use from an IDE of your choice](#how-to-use-from-an-ide-of-your-choice)
+5. [Known commands](#known-commands)
+6. [Known registers](#known-registers)
+7. [Other supported features](#other-supported-features)
+8. [Limitations & Requirements](#limitations--requirements)
+9. [How to add/edit a command](#how-to-addedit-a-command)
+10. [How to add/edit a register](#how-to-addedit-a-register)
+
 ## What it does
 * This compiler translates assembly code into hex code as required by the course. (The compiler prints each command to a new line. Ignore all line breaks when you copy the code into the chip to assure correct line jumping.)
 * Informs you if a command or a register is not known (to the compiler) or if they might be used incorrectly.
@@ -12,7 +24,7 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 
 Please also read limitations and requirements further below.
 
-## How to use from command line
+## How to use from the command line
 1. Download the latest release or clone this repository (to build it yourself).
 2. Navigate to the `.jar`-file from your terminal.
 3. Run `java -jar [enter release file path here] [assembly source file path] [hex destination file]` (without the brackets),  
@@ -26,7 +38,7 @@ for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/sourc
 4. Run the project. The compiled hex code should be written to the destination file.
 
 ## Known commands
-Please read the EP manual for more information about each command. Also take a look on allowed registers for `N`, `E` and `O`.
+Please read the EP manual for more information about each command. Also take a look at allowed registers for `N`, `E` and `O` below.
 <table style="undefined;table-layout: fixed; width: 1061px"><colgroup>
 <col style="width: 117px">
 <col style="width: 60px">
