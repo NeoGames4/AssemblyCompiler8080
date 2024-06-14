@@ -23,7 +23,7 @@ for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/sourc
 1. Download or clone this repository.
 2. Import the project to your IDE (this process varies for each IDE).
 3. Edit the run configuration to specify arguments for the `main`-method as above (this process varies for each IDE).
-4. Run the project. The compiledhex code should be written to the destination file.
+4. Run the project. The compiled hex code should be written to the destination file.
 
 ## Known commands
 Please read the EP manual for more information about each command. Also take a look on allowed registers for `N`, `E` and `O`.
@@ -144,6 +144,7 @@ This lists contains all allowed registers for the commands listed above.
 * For **N**: A (accumulator), B, C, D, E, H and L.
 * For **E**: A, B, C and ADC. (Input.)
 * For **O**: X, R, DAC and ADC. (Output.)
+
 To add or edit registers read further below.
 
 ## Other supported features
