@@ -2,28 +2,55 @@ package compiler;
 
 import java.util.ArrayList;
 
+/**
+ * Stores known assembly commands within the #{@link Commands} array.
+ * @author Mika Thein
+ * @see #commands
+ * @see compiler.Command
+ */
 public class Commands {
 	
+	/**
+	 * An {@link compiler.Command} array defining all commands the compiler knows. Currently containing the following command titles. (Please visit the source code or the GitHub readme for more information about required commands.)
+	 * <ul>
+	 * 	<li>MVI</li>
+	 * 	<li>MOV</li>
+	 * 	<li>INR</li>
+	 * 	<li>DCR</li>
+	 * 	<li>CMP</li>
+	 * 	<li>ADI</li>
+	 * 	<li>DAD</li>
+	 * 	<li>ANA</li>
+	 * 	<li>ORA</li>
+	 * 	<li>XRA</li>
+	 * 	<li>JMP</li>
+	 * 	<li>JZ</li>
+	 * 	<li>JNZ</li>
+	 * 	<li>IN</li>
+	 * 	<li>OUT</li>
+	 * 	<li>HLT</li>
+	 * <lu>
+	 */
 	final static Command[] commands = {
 			/*
 			 * MOVE
 			 */
 			new Command("MVI", 2, "00ddd110") {
 				@Override
-				public ArrayList<String> run(String[] args, int line) throws CompileException {
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
 					
 					r.add(this.binaryRepr.replace("ddd", Compiler.getRegisterByTitle(args[0], line).ddd));
 					
-					String num = NumConverter.decToBinary(args[1]);
-					if(num == null) throw new CompileException(line, "Invalid number value.");
+					String num = NumConverter.decToBinary(args[1], 8);
+					if(num == null) throw new CompileException(line, "Invalid dec value (" + args[1] + ").");
 					r.add(num);
 					
 					return r;
 				}
 			}, new Command("MOV", 2, "01dddsss") {
 				@Override
-				public ArrayList<String> run(String[] args, int line) throws CompileException {
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
 					
 					r.add(
@@ -40,7 +67,7 @@ public class Commands {
 			 */
 			new Command("INR", 1, "00ddd100") {
 				@Override
-				public ArrayList<String> run(String[] args, int line) throws CompileException {
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
 					
 					r.add(this.binaryRepr.replace("ddd", Compiler.getRegisterByTitle(args[0], line).ddd));
@@ -50,7 +77,7 @@ public class Commands {
 			},
 			new Command("DCR", 1, "00ddd101") {
 				@Override
-				public ArrayList<String> run(String[] args, int line) throws CompileException {
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
 					
 					r.add(this.binaryRepr.replace("ddd", Compiler.getRegisterByTitle(args[0], line).ddd));
@@ -67,6 +94,20 @@ public class Commands {
 					ArrayList<String> r = new ArrayList<>();
 					
 					r.add(this.binaryRepr.replace("sss", Compiler.getRegisterByTitle(args[0], line).ddd));
+					
+					return r;
+				}
+			},
+			new Command("ADI", 1, "11000110") {
+				@Override
+				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
+					ArrayList<String> r = new ArrayList<>();
+					
+					r.add(this.binaryRepr);
+					
+					String num = NumConverter.decToBinary(args[0], 8);
+					if(num == null) throw new CompileException(line, "Invalid dec value (" + args[0] + ").");
+					r.add(num);
 					
 					return r;
 				}
@@ -144,6 +185,7 @@ public class Commands {
 					r.add(this.binaryRepr);
 					
 					r.add("L" + args[0]);
+					r.add("L_FOLLOWUP");
 					
 					return r;
 				}
@@ -156,6 +198,7 @@ public class Commands {
 					r.add(this.binaryRepr);
 					
 					r.add("L" + args[0]);
+					r.add("L_FOLLOWUP");
 					
 					return r;
 				}
@@ -168,6 +211,7 @@ public class Commands {
 					r.add(this.binaryRepr);
 					
 					r.add("L" + args[0]);
+					r.add("L_FOLLOWUP");
 					
 					return r;
 				}
@@ -182,7 +226,9 @@ public class Commands {
 					
 					r.add(this.binaryRepr);
 					
-					r.add(NumConverter.decToBinary(args[0]));
+					String num = NumConverter.decToBinary(args[0], 8);
+					if(num == null) throw new CompileException(line, "Invalid dec value (" + args[0] + ").");
+					r.add(num);
 					
 					return r;
 				}
@@ -194,7 +240,9 @@ public class Commands {
 					
 					r.add(this.binaryRepr);
 					
-					r.add(NumConverter.decToBinary(args[0]));
+					String num = NumConverter.decToBinary(args[0], 8);
+					if(num == null) throw new CompileException(line, "Invalid dec value (" + args[0] + ").");
+					r.add(num);
 					
 					return r;
 				}

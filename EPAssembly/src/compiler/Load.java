@@ -7,11 +7,21 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
+/**
+ * Contains the main method of this compiler, which is responsible for reading the assembly code and writing it to the target file.
+ * @author Mika Thein
+ * @see #main(String[])
+ * @see compiler.Compiler
+ */
 public class Load {
 	
+	/**
+	 * The main method. Reads the assembly code and translates it into hex using the {@link compiler.Compiler} class.
+	 * @param args requires two elements: A source file path and a destination file path. (Absolute or relative to the jar location.)
+	 */
 	public static void main(String[] args) {
 		if(args.length < 2) {
-			throw new RuntimeException("Not enough arguments. Source and destination file paths required.\nFor example: ./in.asm ./out.txt.");
+			throw new RuntimeException("Not enough arguments. Source and destination file paths required.\nFor example: folder/in.asm another_folder/out.txt.");
 		}
 		
 		try {
