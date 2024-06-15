@@ -41,7 +41,7 @@ public class Compiler {
 	 * Whether additional information should be printed.<br>
 	 * Writes the original code line next to the hex translation into the destination file if true. (Separated by an '@' character.)
 	 */
-	public static final boolean DEBUG = true;
+	public static boolean DEBUG = false;
 	
 	/**
 	 * Stores the original assembly source code.
@@ -138,7 +138,7 @@ public class Compiler {
 	 * @throws CompileException if something goes wrong
 	 * @see #compileToHex()
 	 */
-	public String[] compileToBinary() throws CompileException { // TODO tag same line support, does not support multiple spaces within line
+	public String[] compileToBinary() throws CompileException { // TODO tag same line support
 		ArrayList<String> binaries = new ArrayList<>();
 		
 		System.out.println("Starting compilation process to binary...");
@@ -146,11 +146,8 @@ public class Compiler {
 		for(int i = 0; i<code.length; i++) {
 			final String line = code[i].split(";")[0].trim();	// Separate comments
 			if(line.isEmpty()) continue;						// Ignore empty lines
-			if(line.contains("  ")) {							// Source code must not contain multiple spaces within its content
-				throw new CompileException(i, "Multiple spaces next to each other are only allowed at the beginning or at the end of a line.");
-			}
 			
-			final String[] components = line.split(" ", 2);		// Seeks for the command title
+			final String[] components = line.split(" ", 2);		// Seeks for the command title and the arguments
 			final String[] args = components.length > 1 ? components[1].split(",") : new String[0];		// Seeks for the command arguments
 			
 			for(int j = 0; j<args.length; j++) {				// Trims the arguments

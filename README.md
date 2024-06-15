@@ -16,7 +16,7 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 ## What it does
 * This compiler translates assembly code into hex code as required by the course. (The compiler prints each command to a new line. Ignore all line breaks when you copy the code into the chip to assure correct line jumping.)
 * Informs you if a command or a register is not known (to the compiler) or if they might be used incorrectly.
-* Additional it is also possible to print out the binary representation.
+* Additional it is also possible to compile to binary (by setting the third argument to `binary` as described below).
 
 ## What it does not
 * The compiler does not actually *execute* your code. To test the code’s behaviour I recommend https://eliben.org/js8080/ by [Eli Bendersky](https://github.com/eliben/js-8080-sim). (Please note that this online simulator does not support `IN` or `OUT`, but it shows the content of each register.)
@@ -28,7 +28,7 @@ Please also read limitations and requirements further below.
 For this approach the [Java JDK](https://www.oracle.com/java/technologies/downloads/) is required.
 1. Download the latest release or clone this repository (to build it yourself).
 2. Navigate to the `.jar`-file from your terminal.
-3. Run `java -jar [enter release file path here] [assembly source file path] [hex destination file]` (without the brackets),  
+3. Run `java -jar [enter release file path here] [assembly source file path] [hex destination file] {hex/binary} {debug/standard}` (without the brackets, curly brackets are optional),  
 for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/source_hex.txt`.
 4. The compiled hex code should be written to the destination file.
 
@@ -177,8 +177,11 @@ EQUALS:
     JMP START
 ```
 
+### Compile to binary
+Per default the compiler compiles to hex. To compile to binary the third argument on execution must be set to `binary`.
+
 ### Debug mode
-The `Compiler.java`-class contains a boolean named `DEBUG`, which is `true` by default. If true, the compiler will show the following extra information.
+The `Compiler.java`-class contains a boolean named `DEBUG` which is `false` by default, but can be set by writing `debug` as the fourth argument. If true, the compiler will show the following extra information.
 * The current line (to the console while compiling).
 * The corresponding (original) line next to each hex code line (to the destination file, separated by an '@' character).
 
