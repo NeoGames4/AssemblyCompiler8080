@@ -25,6 +25,7 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 Please also read limitations and requirements further below.
 
 ## How to use from the command line
+For this approach the [Java JDK](https://www.oracle.com/java/technologies/downloads/) is required.
 1. Download the latest release or clone this repository (to build it yourself).
 2. Navigate to the `.jar`-file from your terminal.
 3. Run `java -jar [enter release file path here] [assembly source file path] [hex destination file]` (without the brackets),  
@@ -182,7 +183,7 @@ The `Compiler.java`-class contains a boolean named `DEBUG`, which is `true` by d
 * The corresponding (original) line next to each hex code line (to the destination file, separated by an '@' character).
 
 ## Limitations & Requirements
-* Requires [Java 8](https://www.java.com/de/download/manual.jsp) (either by your computer or by your IDE).
+* Requires [Java 8 JDK](https://www.oracle.com/java/technologies/downloads/) (either by your computer or by your IDE).
 * The compiler does not support instructions right behind a label declaration.
 
 Instead of
