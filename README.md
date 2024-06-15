@@ -182,7 +182,7 @@ The `Compiler.java`-class contains a boolean named `DEBUG`, which is `true` by d
 * The corresponding (original) line next to each hex code line (to the destination file, separated by an '@' character).
 
 ## Limitations & Requirements
-* Requires Java 8 (either by your computer or by your IDE).
+* Requires [Java 8](https://www.java.com/de/download/manual.jsp) (either by your computer or by your IDE).
 * The compiler does not support instructions right behind a label declaration.
 
 Instead of
