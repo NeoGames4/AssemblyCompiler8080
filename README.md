@@ -1,4 +1,4 @@
-# AssemblyCompiler8080
+[# AssemblyCompiler8080
 A simple assembly compiler for the Intel 8080 based chip used at the electronics practical course (Elektronikpraktikum) at the University of Bonn.
 
 ![Static Badge](https://img.shields.io/badge/latest-1.0.0-green?link=https%3A%2F%2Fgithub.com%2FNeoGames4%2FAssemblyCompiler8080%2Freleases%2Ftag%2Fv1.0.0) ![Static Badge](https://img.shields.io/badge/status-active-green) ![Static Badge](https://img.shields.io/badge/requires-Java%20JDK%2FOpenJDK%208%2B-red) ![Static Badge](https://img.shields.io/badge/license-open%20source%2Fmpl--2.0-violet)
@@ -17,8 +17,8 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 
 ## What it does
 * This compiler translates assembly code into hex code as required by the course. (The compiler prints each instruction to a new line. Ignore all line breaks when you copy the code into the chip to assure correct line jumping.)
-* Informs you if a instruction or a register is not known (to the compiler) or if they might be used incorrectly.
-* Additional it is also possible to compile to binary (by setting the third argument to `binary` as described below).
+* It informs you if a instruction or a register is not known (to the compiler) or if they might be used incorrectly.
+* Additionally it is also possible to compile to binary (by setting the third argument to `binary` as described below).
 
 ## What it does not
 * The compiler does not actually *execute* your code. To test the code’s behaviour I recommend https://eliben.org/js8080/ by [Eli Bendersky](https://github.com/eliben/js-8080-sim). (Please note that this online simulator does not support `IN` or `OUT`, but it shows the content of each register.)
@@ -27,11 +27,11 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 Please also read limitations and requirements further below.
 
 ## How to use from the command line
-For this approach the Java 8 JDK is required.
+For this approach the Java 8 JDK is required. Setting the third argument to `debug` is **highly recommended** as it increases the readability when copying the code to the computer used at the course.
 1. Download the [latest release](https://github.com/NeoGames4/AssemblyCompiler8080/releases) or clone this repository (to build it yourself).
 2. Navigate to the `.jar`-file from your terminal.
 3. Run `java -jar [enter release file path here] [assembly source file path] [hex destination file] {hex/binary} {debug/standard}` (without the brackets, curly brackets are optional),  
-for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/source_hex.txt`.
+for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/source_hex.txt hex debug`.
 4. The compiled hex code should be written to the destination file.
 
 ## How to use from an IDE of your choice
@@ -41,7 +41,8 @@ for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/sourc
 4. Run the project. The compiled hex code should be written to the destination file.
 
 ## Known instructions
-Please read the EP manual for more information about each instruction. Also take a look at allowed registers for `N`, `E` and `O` below.
+Please read the EP manual for more information about each instruction. Also take a look at allowed registers for the placeholders `N`, `E` and `O` right below.
+
 <table style="undefined;table-layout: fixed; width: 1061px"><colgroup>
 <col style="width: 117px">
 <col style="width: 60px">
@@ -164,7 +165,7 @@ To add or edit registers read further below.
 
 ## Other supported features
 ### Comments
-The compiler supports/ignores (single line) comments.
+The compiler supports/ignores (single line) comments indicated by a semicolon.
 ```asm
 START:
     MVI C,10        ; This is a single line comment
@@ -180,11 +181,11 @@ EQUALS:
 ```
 
 ### Compile to binary
-Per default the compiler compiles to hex. To compile to binary the third argument on execution must be set to `binary`.
+Per default the compiler compiles to hex. To compile to binary the third argument on execution must be set to lowercased `binary`.
 
 ### Debug mode
-The `Compiler.java`-class contains a boolean named `DEBUG` which is `false` by default, but can be set by writing `debug` as the fourth argument. If true, the compiler will show the following extra information.
-* The current line (to the console while compiling).
+The `Compiler.java`-class contains a boolean named `DEBUG` which is `false` by default, but can be set by writing lowercased `debug` as the fourth argument. If true, the compiler will show the following extra information.
+* The current line while compiling (to the console).
 * The corresponding (original) line next to each hex code line (to the destination file, separated by an '@' character).
 
 ## Limitations & Requirements
