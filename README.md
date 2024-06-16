@@ -8,21 +8,21 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 2. [What it does not](#what-it-does-not)
 3. [How to use from the command line](#how-to-use-from-the-command-line)
 4. [How to use from an IDE of your choice](#how-to-use-from-an-ide-of-your-choice)
-5. [Known commands](#known-commands)
+5. [Known instructions](#known-instructions)
 6. [Known registers](#known-registers)
 7. [Other supported features](#other-supported-features)
 8. [Limitations & Requirements](#limitations--requirements)
-9. [How to add/edit a command](#how-to-addedit-a-command)
+9. [How to add/edit a instruction](#how-to-addedit-a-instruction)
 10. [How to add/edit a register](#how-to-addedit-a-register)
 
 ## What it does
-* This compiler translates assembly code into hex code as required by the course. (The compiler prints each command to a new line. Ignore all line breaks when you copy the code into the chip to assure correct line jumping.)
-* Informs you if a command or a register is not known (to the compiler) or if they might be used incorrectly.
+* This compiler translates assembly code into hex code as required by the course. (The compiler prints each instruction to a new line. Ignore all line breaks when you copy the code into the chip to assure correct line jumping.)
+* Informs you if a instruction or a register is not known (to the compiler) or if they might be used incorrectly.
 * Additional it is also possible to compile to binary (by setting the third argument to `binary` as described below).
 
 ## What it does not
 * The compiler does not actually *execute* your code. To test the code’s behaviour I recommend https://eliben.org/js8080/ by [Eli Bendersky](https://github.com/eliben/js-8080-sim). (Please note that this online simulator does not support `IN` or `OUT`, but it shows the content of each register.)
-* The compiler does not know every command specified in the table of the EP manual, as well as defined by the Intel 8080 assembly documentation. For a list of known commands see below. (If you known Java basics, it is relatively easy to add your own commands though!)
+* The compiler does not know every instruction specified in the table of the EP manual, as well as defined by the Intel 8080 assembly documentation. For a list of known instructions see below. (If you known Java basics, it is relatively easy to add your own instructions though!)
 
 Please also read limitations and requirements further below.
 
@@ -40,8 +40,8 @@ for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/sourc
 3. Edit the run configuration to specify arguments for the `main`-method as above (this process varies for each IDE).
 4. Run the project. The compiled hex code should be written to the destination file.
 
-## Known commands
-Please read the EP manual for more information about each command. Also take a look at allowed registers for `N`, `E` and `O` below.
+## Known instructions
+Please read the EP manual for more information about each instruction. Also take a look at allowed registers for `N`, `E` and `O` below.
 <table style="undefined;table-layout: fixed; width: 1061px"><colgroup>
 <col style="width: 117px">
 <col style="width: 60px">
@@ -155,7 +155,7 @@ Please read the EP manual for more information about each command. Also take a l
 </tbody></table>
 
 ## Known registers
-This lists contains all allowed registers for the commands listed above.
+This lists contains all allowed registers for the instructions listed above.
 * For **N**: A (accumulator), B, C, D, E, H and L.
 * For **E**: A, B, C and ADC. (Input.)
 * For **O**: X, R, DAC and ADC. (Output.)
@@ -203,6 +203,6 @@ A_LABEL:
     JMP A_LABEL
 ```
 
-## How to add/edit a command
+## How to add/edit a instruction
 
 ## How to add/edit a register
