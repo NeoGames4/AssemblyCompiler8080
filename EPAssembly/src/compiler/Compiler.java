@@ -5,7 +5,7 @@ import java.util.HashMap;
 
 /**
  * The main component of this project. Contains the algorithm to compile the assembly code into binary or hex.<br>
- * The capacity of known commands is defined in the {@link compiler.Commands} class.
+ * The capacity of known instructions is defined in the {@link compiler.Instructions} class.
  * @author Mika Thein
  * @see #Compiler(String[])
  * @see #compileToBinary()
@@ -14,10 +14,10 @@ import java.util.HashMap;
 public class Compiler {
 	
 	/**
-	 * A list of all available assembly commands as defined in the {@link compiler.Commands} class. 
-	 * @see compiler.Commands#commands
+	 * A list of all available assembly instructions as defined in the {@link compiler.Instructions} class. 
+	 * @see compiler.Instructions#instructions
 	 */
-	final static Command[] commands = Commands.commands;
+	final static Instruction[] instructions = Instructions.instructions;
 	
 	/**
 	 * Stores the title of each register and the individual binary representation "ddd" or "sss", as well as the addresses associated with the title.<br>
@@ -77,32 +77,32 @@ public class Compiler {
 	}
 	
 	/**
-	 * Searches all known commands for the given command title and the amount of arguments.
-	 * @param title the title of the command
-	 * @param argsCount the amount of arguments the command accepts
+	 * Searches all known instructions for the given instruction title and the amount of arguments.
+	 * @param title the title of the instruction
+	 * @param argsCount the amount of arguments the instruction accepts
 	 * @param line the current line number
-	 * @return the {@link compiler.Command} if the command exists, {@code null} otherwise
-	 * @see #commands
+	 * @return the {@link compiler.Instruction} if the instruction exists, {@code null} otherwise
+	 * @see #instructions
 	 */
-	public static Command findCommandByTitle(String title, int argsCount, int line) {
-		for(Command c : commands) {
+	public static Instruction findInstructionByTitle(String title, int argsCount, int line) {
+		for(Instruction c : instructions) {
 			if(c.title.toUpperCase().equals(title.toUpperCase()) && c.argsCount == argsCount) return c;
 		} return null;
 	}
 	
 	/**
-	 * Runs {@link #findCommandByTitle(String, int, int)}, but throws an exception if the command could not be found.
-	 * @param title the title of the command
-	 * @param argsCount the amount of arguments the command accepts
+	 * Runs {@link #findInstructionByTitle(String, int, int)}, but throws an exception if the instruction could not be found.
+	 * @param title the title of the instruction
+	 * @param argsCount the amount of arguments the instruction accepts
 	 * @param line the current line number
-	 * @return the {@link compiler.Command} if the command exists
-	 * @throws CompileException if the command does not exist
-	 * @see #commands
+	 * @return the {@link compiler.Instruction} if the instruction exists
+	 * @throws CompileException if the instruction does not exist
+	 * @see #instructions
 	 */
-	public static Command getCommandByTitle(String title, int argsCount, int line) throws CompileException {
-		Command c = findCommandByTitle(title, argsCount, line);
+	public static Instruction getInstructionByTitle(String title, int argsCount, int line) throws CompileException {
+		Instruction c = findInstructionByTitle(title, argsCount, line);
 		if(c != null) return c;
-		throw new CompileException(line, "Unknown command '" + title + "' with " + argsCount + " arguments.");
+		throw new CompileException(line, "Unknown instruction '" + title + "' with " + argsCount + " arguments.");
 	}
 	
 	/**
@@ -147,8 +147,8 @@ public class Compiler {
 			final String line = code[i].split(";")[0].trim();	// Separate comments
 			if(line.isEmpty()) continue;						// Ignore empty lines
 			
-			final String[] components = line.split(" ", 2);		// Seeks for the command title and the arguments
-			final String[] args = components.length > 1 ? components[1].split(",") : new String[0];		// Seeks for the command arguments
+			final String[] components = line.split(" ", 2);		// Seeks for the instruction title and the arguments
+			final String[] args = components.length > 1 ? components[1].split(",") : new String[0];		// Seeks for the instruction arguments
 			
 			for(int j = 0; j<args.length; j++) {				// Trims the arguments
 				args[j] = args[j].trim();
@@ -158,9 +158,9 @@ public class Compiler {
 			
 			if(line.endsWith(":")) {							// Detects labels
 				labels.put(line.substring(0, line.length()-1), binaries.size());
-			} else {											// Detects commands
+			} else {											// Detects instructions
 				int preSize = binaries.size();
-				Command c = getCommandByTitle(components[0], args.length, i);
+				Instruction c = getInstructionByTitle(components[0], args.length, i);
 				binaries.addAll(c.run(args, i, this));
 				if(binaries.size() > preSize) binaries.set(preSize, binaries.get(preSize) + (DEBUG ? "@" + line + " l" + i : ""));
 			}

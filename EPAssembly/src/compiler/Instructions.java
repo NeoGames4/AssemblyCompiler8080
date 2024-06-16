@@ -3,16 +3,16 @@ package compiler;
 import java.util.ArrayList;
 
 /**
- * Stores known assembly commands within the #{@link Commands} array.<br>
- * Usually retrieved from the {@link compiler.Compiler#commands} array.
+ * Stores known assembly instructions within the #{@link Instructions} array.<br>
+ * Usually retrieved from the {@link compiler.Compiler#instructions} array.
  * @author Mika Thein
- * @see #commands
- * @see compiler.Command
+ * @see #instructions
+ * @see compiler.Instruction
  */
-public class Commands {
+public class Instructions {
 	
 	/**
-	 * An {@link compiler.Command} array defining all commands the compiler knows. Currently containing the following command titles. (Please visit the source code or the GitHub readme for more information about required commands.)
+	 * An {@link compiler.Instruction} array defining all instructions the compiler knows. Currently containing the following instruction titles. (Please visit the source code or the GitHub readme for more information about the instructions.)
 	 * <ul>
 	 * 	<li>MVI</li>
 	 * 	<li>MOV</li>
@@ -32,11 +32,11 @@ public class Commands {
 	 * 	<li>HLT</li>
 	 * <lu>
 	 */
-	final static Command[] commands = {
+	final static Instruction[] instructions = {
 			/*
 			 * MOVE
 			 */
-			new Command("MVI", 2, "00ddd110") {
+			new Instruction("MVI", 2, "00ddd110") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -55,7 +55,7 @@ public class Commands {
 					
 					return r;
 				}
-			}, new Command("MOV", 2, "01dddsss") {
+			}, new Instruction("MOV", 2, "01dddsss") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -83,7 +83,7 @@ public class Commands {
 			/*
 			 * INCREASE DECREASE
 			 */
-			new Command("INR", 1, "00ddd100") {
+			new Instruction("INR", 1, "00ddd100") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -99,7 +99,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("DCR", 1, "00ddd101") {
+			new Instruction("DCR", 1, "00ddd101") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -118,7 +118,7 @@ public class Commands {
 			/*
 			 * Arithmetik
 			 */
-			new Command("CMP", 1, "10111sss") {
+			new Instruction("CMP", 1, "10111sss") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -134,7 +134,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("ADI", 1, "11000110") {
+			new Instruction("ADI", 1, "11000110") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -148,7 +148,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("DAD", 1, "") {
+			new Instruction("DAD", 1, "") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -169,7 +169,7 @@ public class Commands {
 							binary = "00111001";
 							break;
 						default:
-							throw new CompileException(line, "Unknown argument '" + args[0] + "' for command '" + this.title + "'.");
+							throw new CompileException(line, "Unknown argument '" + args[0] + "' for instruction '" + this.title + "'.");
 					}
 					
 					r.add(binary);
@@ -180,7 +180,7 @@ public class Commands {
 			/*
 			 * LOGIC
 			 */
-			new Command("ANA", 1, "10100sss") {
+			new Instruction("ANA", 1, "10100sss") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -196,7 +196,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("ORA", 1, "10110sss") {
+			new Instruction("ORA", 1, "10110sss") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -212,7 +212,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("XRA", 1, "10101sss") {
+			new Instruction("XRA", 1, "10101sss") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -231,7 +231,7 @@ public class Commands {
 			/*
 			 * JUMP
 			 */
-			new Command("JMP", 1, "11000011") {
+			new Instruction("JMP", 1, "11000011") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -244,7 +244,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("JZ", 1, "11001010") {
+			new Instruction("JZ", 1, "11001010") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -257,7 +257,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("JNZ", 1, "11000010") {
+			new Instruction("JNZ", 1, "11000010") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -273,7 +273,7 @@ public class Commands {
 			/*
 			 * INPUT OUTPUT
 			 */
-			new Command("IN", 1, "11011011") {
+			new Instruction("IN", 1, "11011011") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -290,7 +290,7 @@ public class Commands {
 					return r;
 				}
 			},
-			new Command("OUT", 1, "11010011") {
+			new Instruction("OUT", 1, "11010011") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
@@ -310,7 +310,7 @@ public class Commands {
 			/*
 			 * OTHERS
 			 */
-			new Command("HLT", 0, "01110110") {
+			new Instruction("HLT", 0, "01110110") {
 				@Override
 				public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
 					ArrayList<String> r = new ArrayList<>();
