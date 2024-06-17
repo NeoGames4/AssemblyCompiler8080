@@ -3,6 +3,9 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 
 ![Static Badge](https://img.shields.io/badge/latest-1.0.0-green?link=https%3A%2F%2Fgithub.com%2FNeoGames4%2FAssemblyCompiler8080%2Freleases%2Ftag%2Fv1.0.0) ![Static Badge](https://img.shields.io/badge/status-active-green) ![Static Badge](https://img.shields.io/badge/requires-Java%20JDK%2FOpenJDK%208%2B-red) ![Static Badge](https://img.shields.io/badge/license-open%20source%2Fmpl--2.0-violet)
 
+> ℹ︎ This program and the documentation refer to the EP manual from April, 2024. (SoSe 2024.)
+> However, the instructions should not change. The program should still be up-to-date in the future. A careful look at the hex output is still advisable.
+
 ## Table of Contents
 1. [What it does](#what-it-does)
 2. [What it does not](#what-it-does-not)
@@ -205,5 +208,44 @@ A_LABEL:
 ```
 
 ## How to add/edit a instruction
+1. Open `src/compiler/Instructions.java`.
+2. This class contains a static Instruction[]-array named `instructions`. It includes every instruction known to the compiler. Each instruction is defined similar as follows.  
+    ```java
+    new Instruction("INSTRUCTION_TITLE", 1, "10101010") {	// The instruction title, the amount of required arguments and the binary representation.
+        @Override
+        // This method defines how this instruction should be translated to binary
+        public ArrayList<String> run(String[] args, int line, Compiler compiler) throws CompileException {
+            // This list will be returned, contains the 8-bit binary strings that represent this instruction
+            // Please assure that each string you add consists of eight characters of only '0' and '1'
+            ArrayList<String> r = new ArrayList<>();
+            // Adds the binary representation set above ("10101010") to the output
+            r.add(this.binaryRepr);
+
+            // Example call of a register.
+            // In this case, the register title (such as 'A' or 'B') is received from the first instruction argument args[0]
+            // The line variable indicates where the compiler is currently working. It should be passed unchanged for error messages
+            Register register = Compiler.getRegisterByTitle(args[0], line);
+            // Registers may contain up to three register identifier: inputAddress, outputAddress and its associated binary representation ("ddd" or "sss").
+            // Please check whether the required address is defined (is not null)
+            if(register.inputAddress == null) {
+                throw new CompileException(line, "Unknown input address for register " + register.title + ". The register might not be designed for this usage. "
+                    + "Please reassure correct usage of this register and add the required information to its initialization in the Compiler.java class.");
+            }
+            // Adds the register address to the output
+            r.add(register.inputAddress);
+
+            // Return the binary representation of this instruction
+            return r;
+        }
+    }
+    ```  
+    The `instructions`-array contains multiple examples. Please scroll down to `HLT` to see an instruction that requires no argument. See `INR` or `ANA` for instructions that make use of the "ddd" or "sss" register representation. `MOV` and `MVI` require two arguments. `MVI` and `ADI` accept an integer. Modify or add your instruction accordingly.
+3. If you want to add a new instruction, paste its code into the array. Make sure to add a comma after the previous element/in front of the next element.
 
 ## How to add/edit a register
+1. Open `src/compiler/Compiler.java` and scroll down to the initialization of the static `Register[]`-array `registers`.
+2. Each register is defined as follows.
+   ```java
+   new Register("NAME", "111", "11111111", "00000000")
+   ```
+   The first argument defines the title of this register. The second argument defines its 3-bit representation ("ddd" or "sss"). The third argument describes its input address, the fourth argument describes its output address. The C register, for example, is represented by "001". (According to the EP manual, tab 8.8.) The input address 02_16 = 00000010_2 is described in section 8.3.3. There is no "output register" called C, which is why it is set to `null`. Read the other initializations of the other registers for more examples. Modify or add your register accordingly.
