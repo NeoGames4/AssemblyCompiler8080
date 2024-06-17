@@ -39,8 +39,8 @@ for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/sourc
 
 ## How to use from an IDE of your choice
 1. Download or clone this repository.
-2. Import the project to your IDE (this process varies for each IDE).
-3. Edit the run configuration to specify arguments for the `main`-method as above (this process varies for each IDE).
+2. Import the `EPAssembly` folder to your IDE (this process varies for each IDE). ([Eclipse](https://stackoverflow.com/a/8611662) | [IntelliJ IDEA](https://www.jetbrains.com/help/idea/import-project-or-module-wizard.html#import-project) | [VS Code](https://code.visualstudio.com/docs/java/java-project#:~:text=Import%20Java%20projects,gradle%20).)
+3. Edit the run configuration to specify arguments for the `main`-method as above. ([Eclipse](https://help.eclipse.org/latest/index.jsp?topic=%2Forg.eclipse.jdt.doc.user%2Ftasks%2Ftasks-executionArgs.htm) | [IntelliJ IDEA](https://www.jetbrains.com/help/objc/add-environment-variables-and-program-arguments.html#:~:text=From%20the%20main%20menu%2C%20select,in%20the%20Program%20arguments%20field.) | [VS Code](https://code.visualstudio.com/docs/java/java-debugging#_configuration-options).)
 4. Run the project. The compiled hex code should be written to the destination file.
 
 ## Known instructions
