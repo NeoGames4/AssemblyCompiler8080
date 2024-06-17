@@ -1,0 +1,50 @@
+% This package is enables more color settings
+\usepackage[dvipsnames]{xcolor}
+
+% Import the listings package to display code
+\usepackage{listings}
+
+% Label code sections with "Code" (e. g. "Code 1: […]", "Code 2: […]", ….)
+\renewcommand{\lstlistingname}{Code}
+% \lstlistoflistings title -> "Codeverzeichnis"
+\renewcommand{\lstlistlistingname}{\lstlistingname verzeichnis}
+
+% Syntax highlighting, define assembly
+\lstdefinelanguage{ASM}{
+    % ELEMENTS
+    morekeywords    = [1]{MVI,MOV,INR,DCR,CMP,ADI,DAD,ANA,ORA,XRA,JMP,JZ,JNZ,IN,OUT,HLT}, % instructions
+    morekeywords    = [2]{A,B,C,D,E,H,L,X,R,DAC,ADC}, % registers
+    sensitive       = false, % case-sensitivity
+    morecomment     = [l]{;}, % l is for line comment
+    morestring      = [b]", % defines that strings are enclosed in double quotes
+    % STYLE
+    frame           = tb, % top bottom line
+    captionpos      = b, % captions at the bottom
+    numbers         = left, % line numbers on the left
+    tabsize         = 4, % one tab has the width of four spaces
+    columns         = fixed, % monospaced
+    extendedchars   = true, % 256 instead of 128 characters
+    basicstyle      = \ttfamily\small,
+    breaklines      = true,
+    literate        = {ö}{{\"o}}1 % display ä, ö, ü
+                      {ä}{{\"a}}1
+                      {ü}{{\"u}}1,
+    % SYNTAX HIGHLIGHTING
+    keywordstyle    = [1]\color{blue},
+    keywordstyle    = [2]\color{black},
+    commentstyle    = \color{CadetBlue},
+    numberstyle     = \color{white!50!black},
+    identifierstyle = \color{green!50!black}
+}
+
+% Example code
+\begin{lstlisting}[language=ASM, caption={Assembly source code for generating a sawtooth signal.}, label={lst:sawtooth}]
+MVI A, 0  ; 3E \ 00 ; Set A to 0
+F1:     ;     ;
+INR A   ; 3C    ; Increase A by 1
+OUT DAC   ; D3 \ 04 ; Output A at the DAC
+JMP F1    ; C3 \ 02\00; Repeat from F1
+\end{lstlisting}
+
+% Put this at the end of your document to list all code snippets
+\lstlistoflistings
