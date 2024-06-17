@@ -19,13 +19,13 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 10. [How to add/edit a register](#how-to-addedit-a-register)
 
 ## What it does
-* This compiler translates assembly code into hex code as required by the course. (The compiler prints each instruction to a new line. Ignore all line breaks when you copy the code into the chip to assure correct line jumping.)
+* This compiler translates assembly code into hex code as required by the course. (The compiler prints each instruction to a new line. Ignore all line breaks when you copy the code to the chip to assure correct line jumping.)
 * It informs you if a instruction or a register is not known (to the compiler) or if they might be used incorrectly.
-* Additionally it is also possible to compile to binary (by setting the third argument to `binary` as described below).
+* Additionally, it is also possible to compile to binary (by setting the third argument to `binary` as described below).
 
 ## What it does not
 * The compiler does not actually *execute* your code. To test the code’s behaviour I recommend https://eliben.org/js8080/ by [Eli Bendersky](https://github.com/eliben/js-8080-sim). (Please note that this online simulator does not support `IN` or `OUT`, but it shows the content of each register.)
-* The compiler does not know every instruction specified in the table of the EP manual, as well as defined by the Intel 8080 assembly documentation. For a list of known instructions see below. (If you known Java basics, it is relatively easy to add your own instructions though!)
+* The compiler does not know every instruction specified in the table of the EP manual, as well as defined by the Intel 8080 assembly documentation. For a list of known instructions see below. (If you know some Java or C basics, it might be easy to add your own instructions though!)
 
 Please also read limitations and requirements further below.
 
