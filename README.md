@@ -7,6 +7,7 @@ View `latex-syntax-highlighting.tex` for simple assembly syntax highlighting in 
 
 > ℹ︎ This program and the documentation refer to the EP manual from April, 2024. (SoSe 2024.)
 > However, the instructions should not change very often. The program should still be up-to-date in the future. A careful look at the hex output is still advisable.
+> Please do not hesitate to contact me via my e-mail if you have any questions or problems (regarding the compiler!): `mika.t (@) uni-bonn (dot) de`.
 
 ## Table of Contents
 1. [What it does](#what-it-does)
@@ -177,7 +178,7 @@ START:
     IN B            ; Text behind semicolons is going to be ignored
     MOV B,A
 
-    CMP C,10
+    CMP C
     JNZ START
 
 EQUALS:
@@ -209,7 +210,7 @@ A_LABEL:
     JMP A_LABEL
 ```
 
-## How to add/edit a instruction
+## How to add/edit an instruction
 1. Open `src/compiler/Instructions.java`.
 2. This class contains a static Instruction[]-array named `instructions`. It includes every instruction known to the compiler. Each instruction is defined similar as follows.  
     ```java
