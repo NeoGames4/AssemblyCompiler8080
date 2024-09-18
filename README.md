@@ -47,7 +47,7 @@ for example `java -jar EPAssemblyCompiler.jar aufgabe1/source.asm aufgabe1/sourc
 4. Run the project. The compiled hex code should be written to the destination file.
 
 ## Known instructions
-Please read the EP manual for more information about each instruction. Also take a look at allowed registers for the placeholders `N`, `E` and `O` right below.
+Please read the EP manual for more information about each instruction. Also take a look at allowed registers for the placeholders `N`, `E` and `O` right below. Instructions whose description has been marked with “⚠︎” have not yet been tested on the chip of the experiment.
 
 <table style="undefined;table-layout: fixed; width: 1061px"><colgroup>
 <col style="width: 117px">
@@ -140,6 +140,42 @@ Please read the EP manual for more information about each instruction. Also take
     <td>1</td>
     <td> Jumps to the label L if the Flag Z is 0.<br></td>
     <td>CMP B<br>JNZ L<br>(Jumps to the label L if the accumulator A is not equals to B.)</td>
+  </tr>
+  <tr>
+    <td>CALL L<br></td>
+    <td>1</td>
+    <td>⚠︎ Jumps to the label L. (Sets the program counter to the address at L.) Puts the relative address of the following instruction on the stack to jump back when return is called.<br></td>
+    <td>CALL LABEL<br>LABEL:<br>  RET<br>(Jumps to LABEL and returns immediately, staying in a never ending loop.)</td>
+  </tr>
+  <tr>
+    <td>CZ L<br></td>
+    <td>1</td>
+    <td>⚠︎ Jumps to the label L and puts the relative address on the stack (waiting for return) if the Flag Z is 1.<br></td>
+    <td>CZ LABEL<br>LABEL:<br>  RET<br>(Jumps to LABEL if the accumulator A is 0.)</td>
+  </tr>
+  <tr>
+    <td>CNZ L<br></td>
+    <td>1</td>
+    <td>⚠︎ Jumps to the label L and puts the relative address on the stack (waiting for return) if the Flag Z is 0.<br></td>
+    <td>CNZ LABEL<br>LABEL:<br>  RET<br>(Jumps to LABEL if the accumulator A is not 0.)</td>
+  </tr>
+  <tr>
+    <td>RET<br></td>
+    <td>0</td>
+    <td>⚠︎ Returns the program counter to the relative address sitting on the stack.<br></td>
+    <td>CALL LABEL<br>HLT<br>LABEL:<br>  RET<br>(Jumps ot LABEL and returns immediately to HLT.)</td>
+  </tr>
+  <tr>
+    <td>RZ<br></td>
+    <td>0</td>
+    <td>⚠︎ Returns the program counter to the relative address sitting on the stack if the flag Z is 1.<br></td>
+    <td>CALL LABEL<br>HLT<br>LABEL:<br>  RZ<br>(Jumps ot LABEL and returns immediately to HLT if the accumulator A is 0.)</td>
+  </tr>
+  <tr>
+    <td>RNZ<br></td>
+    <td>0</td>
+    <td>⚠︎ Returns the program counter to the relative address sitting on the stack if the flag Z is 0.<br></td>
+    <td>CALL LABEL<br>HLT<br>LABEL:<br>  RNZ<br>(Jumps ot LABEL and returns immediately to HLT if the accumulator A is not 0.)</td>
   </tr>
   <tr>
     <td>IN E<br></td>
