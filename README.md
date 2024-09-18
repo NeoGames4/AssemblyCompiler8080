@@ -3,7 +3,7 @@ A simple assembly compiler for the Intel 8080 based chip used at the electronics
 
 View `latex-syntax-highlighting.tex` for simple assembly syntax highlighting in LaTeX.
 
-![Static Badge](https://img.shields.io/badge/latest-1.0.0-green?link=https%3A%2F%2Fgithub.com%2FNeoGames4%2FAssemblyCompiler8080%2Freleases%2Ftag%2Fv1.0.0) ![Static Badge](https://img.shields.io/badge/status-active-green) ![Static Badge](https://img.shields.io/badge/requires-Java%20JDK%2FOpenJDK%208%2B-red) ![Static Badge](https://img.shields.io/badge/license-open%20source%2Fmpl--2.0-violet)
+![Static Badge](https://img.shields.io/badge/latest-1.1.0-green?link=https%3A%2F%2Fgithub.com%2FNeoGames4%2FAssemblyCompiler8080%2Freleases%2Ftag%2Fv1.1.0) ![Static Badge](https://img.shields.io/badge/status-active-green) ![Static Badge](https://img.shields.io/badge/requires-Java%20JDK%2FOpenJDK%208%2B-red) ![Static Badge](https://img.shields.io/badge/license-open%20source%2Fmpl--2.0-violet)
 
 > ℹ︎ This program and the documentation refer to the EP manual from April, 2024. (SoSe 2024.)
 > However, the instructions should not change very often. The program should still be up-to-date in the future. A careful look at the hex output is still advisable.
